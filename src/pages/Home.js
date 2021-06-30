@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import sneakersApi from '../api/axios'
 import Card from '../components/Card'
 import AppContext from '../context'
 import search from '../img/search.svg'
 
 
-function Home({onAddToFavorite, onAddToCart, homeItems}) {
+function Home({onAddToFavorites, onAddToCart, homeItems}) {
   const {isLoading} = useContext(AppContext)
 
   const [inputValue, setInputValue] = useState('')
@@ -13,17 +13,12 @@ function Home({onAddToFavorite, onAddToCart, homeItems}) {
   const onInputChange = (event) => {
     setInputValue(event.target.value)
   }
-
-  const onAddedToCart = (event) => {
-    setInputValue(event.target.value)
-  }
   
-
   const renderItems = () => {
     const filteredItems = homeItems.filter(items => items.title.toLowerCase().includes(inputValue.toLowerCase()))
     return (isLoading ? [...Array(8)] : filteredItems).map((item,index) => <Card  
                                                                               key={index}
-                                                                              onFavorite={onAddToFavorite}
+                                                                              onFavorite={onAddToFavorites}
                                                                               onAddToCart={onAddToCart}
                                                                               {...item}
                                                                                   />)
@@ -34,7 +29,7 @@ function Home({onAddToFavorite, onAddToCart, homeItems}) {
     <div className="content p-40">
     <div className="d-flex align-center justify-between">
       <div>
-        <h1>{inputValue ? `Поиск по запросу ${inputValue}` : 'Все кроссовки' }</h1>
+        <h1>{inputValue ? `Поиск по запросу: ${inputValue}` : 'Все кроссовки' }</h1>
       </div>
 
       <div className="search-block">

@@ -2,7 +2,7 @@ import { Route } from 'react-router';
 import Header from './components/Header'
 import Drawer from './components/Drawer'
 import Home from './pages/Home';
-import './App.css';
+import Favorites from './pages/Favorites';
 import sneakersApi from './api/axios';
 import { useEffect, useState } from 'react';
 import AppContext from './context';
@@ -14,7 +14,7 @@ function App() {
   const [homeItems, setHomeItems] = useState([])
   const [cartItems, setCartItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-
+  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
 
@@ -35,29 +35,54 @@ function App() {
   }, [])
 
 
-  const onAddToCart = (obj) =>{
-      try {
-        console.log(cartItems.find((item) => Number(item.id) === Number(obj.id) ))
-        if(cartItems.find(item => Number(item.id) === Number(obj.id) )){
-          
-          sneakersApi.delete(`/cart/${obj.id}`)
-          setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
-        }else {
-          sneakersApi.post('/cart', obj);
-         setCartItems((prev) => [...prev, obj]);
-        }  
-      } catch (error) {
-        alert("Не удалось обновить корзину")
-      } 
+  const onAddToCart = async (obj) =>{
+    try {
+      debugger
+      if(cartItems.find(item => item.itemId === obj.itemId )){
+        const item = cartItems.find(item => Number(item.itemId) === Number(obj.itemId) )
+        sneakersApi.delete(`/cart/${item.id}`)
+        setCartItems((prev) => prev.filter((item) => Number(item.itemId) !== Number(obj.itemId)))
+        
+      }else {
+        const {data} = await sneakersApi.post('/cart', obj);
+        setCartItems((prev) => [...prev, data]);
+        
+      }  
+    } catch (error) {
+      alert("Не удалось обновить закладки")
+    }
   }
 
-  const onRemoveFromCart = (id) => {
-    sneakersApi.delete(`/cart/${id}`)
-    setCartItems((prev) => prev.filter(item => item.id != id))
+  const onAddToFavorites = async (obj) =>{
+    try {
+      debugger
+      if(favorites.find(item => item.itemId === obj.itemId )){
+        const item = favorites.find(item => Number(item.itemId) === Number(obj.itemId) )
+        sneakersApi.delete(`/favorites/${item.id}`)
+        setFavorites((prev) => prev.filter((item) => Number(item.itemId) !== Number(obj.itemId)))
+        
+      }else {
+        const {data} = await sneakersApi.post('/favorites', obj);
+        setFavorites((prev) => [...prev, data]);
+        
+      }  
+    } catch (error) {
+      alert("Не удалось обновить закладки")
+    }
   }
 
-  const isItemAdded = (id) => {
-    return cartItems.some(obj => Number(obj.id) === Number(id))
+  const onRemoveFromCart = (obj) => {
+  
+    sneakersApi.delete(`/cart/${obj.id}`)
+    setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)))
+  }
+
+  const isItemAdded = (itemId) => {
+    return cartItems.some(obj => Number(obj.itemId) === Number(itemId))
+  }
+
+  const isItemInFavorite = (itemId) => {
+    return favorites.some(obj => Number(obj.itemId) === Number(itemId))
   }
 
 
@@ -68,22 +93,32 @@ function App() {
         homeItems,
         favorites,
         onAddToCart,
-        isLoading,   
+        isLoading,
+        totalPrice,
+        onAddToFavorites,
+        isItemInFavorite
+
       }}>
       <div className="wrapper clear">
         
-        {cartOpened && <Drawer items={cartItems} onRemoveFromCart={onRemoveFromCart} onCartClose={() => setcartOpened(false)}/> }
+        {cartOpened && <Drawer items={cartItems} 
+                               onRemoveFromCart={onRemoveFromCart} 
+                               onCartClose={() => setcartOpened(false)}/>}
         
 
         <Header onCartOpen={() => setcartOpened(true)}/>
 
         <Route path="/react-shop" exact>
-          <Home onAddToCart={onAddToCart} homeItems={homeItems}  cartItems={cartItems} favorites={favorites}/>
+          <Home onAddToCart={onAddToCart} 
+                homeItems={homeItems}  
+                cartItems={cartItems} 
+                favorites={favorites}
+                onAddToFavorite={onAddToFavorites}/>
         </Route>
 
-        {/* <Route path="/react-shop/" exact>
-          <Home onRemoveFavorite={onRemoveFavorite} onAddToFavorite="" homeItems={homeItems}  cartItems={cartItems} favorites={favorites}/>
-        </Route> */}
+        <Route path="/favorites" exact>
+          <Favorites  />
+        </Route>
 
       </div>
     </AppContext.Provider>

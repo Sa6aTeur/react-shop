@@ -110,7 +110,7 @@ code {
 
 .greenButton{
   position: relative;
-  width: 100%;
+  width: 360px;
   min-height: 50px;
   margin-top: 30px;
   font-size: 16px;
@@ -123,16 +123,31 @@ code {
     background: lighten(#9DD458, 5%);
     transform: translateY(-3px);
     cursor: pointer;
+    .leftArrow{
+      transition: transform 0.2s ease-in-out;
+      transform: translateY(-15px);
+      transform: translateX(-5px);
+    }
+    .rightArrow{
+      transition: transform 0.2s ease-in-out;
+      transform: translateY(-15px);
+      transform: translateX(5px);
+    }
   }
-  img{
+  .rightArrow{
     position: absolute;
     right: 30px;
+    top: 17px;
+  }
+  .leftArrow{
+    position: absolute;
+    left: 30px;
     top: 17px;
   }
 }
 
 .drawer{
-  position: absolute;
+  position: fixed;
   padding: 30px;
   width: 420px;
   right: 0;
@@ -144,8 +159,14 @@ code {
   h2{
     margin: 0;
   }
-
+  .emptyCart{
+    p{
+      text-align: center;
+      color: #929292;
+    }
+  }
   .cartTotalBlock{
+    text-align: center;
     div{
       margin: 0 7px 3px 7px;
       flex: 1;
@@ -189,8 +210,17 @@ code {
 
 }
 
+.favorites{
+  height: 100%;
+  .emptyFavorites{
+    p{
+      text-align: center;
+      color: #929292;
+    }
+  }
+}
 .overlay {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   background-color: rgba(0,0,0,0.3);

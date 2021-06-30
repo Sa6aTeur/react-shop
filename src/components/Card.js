@@ -6,18 +6,18 @@ import btnChecked from '../img/btnChecked.svg'
 import AppContext from '../context'
 import ContentLoader from 'react-content-loader';
 
-const Card = ({id,imageUrl, price, title, isInFavorite = false,}) => {
+const Card = ({itemId,imageUrl, price, title, isInFavorite = false,}) => {
 
-  const {isItemAdded,onAddToCart, isLoading} = useContext(AppContext)
+  const {isItemAdded,onAddToCart, isLoading,onAddToFavorites,isItemInFavorite} = useContext(AppContext)
   const [ inFavorite, setInFavorite] = useState(isInFavorite)
 
   const onClickFavorite = () =>{
     setInFavorite(!inFavorite)
-    //onFavorite({id, title, price, imageUrl})
+    onAddToFavorites({itemId, title, price, imageUrl})
   }
 
   const onClickPlus = () =>{ 
-      onAddToCart({id, title, price, imageUrl}) 
+      onAddToCart({itemId, title, price, imageUrl}) 
   }
 
   return (
@@ -38,7 +38,7 @@ const Card = ({id,imageUrl, price, title, isInFavorite = false,}) => {
                 </ContentLoader>) 
 
               : (<>
-                <div className="favorite"> <img onClick={onClickFavorite} src={inFavorite? lickedButton : unlickedButton} alt="addLike" /></div>       
+                <div className="favorite"> <img onClick={onClickFavorite} src={isItemInFavorite(itemId)? lickedButton : unlickedButton} alt="addLike" /></div>       
                 <div>
                   <img src={imageUrl} alt="sneakers" height={112} width={133} />
                   <h5>{title}</h5>
@@ -47,7 +47,7 @@ const Card = ({id,imageUrl, price, title, isInFavorite = false,}) => {
                       <span className="text-uppercase mr-5">цена:</span>
                       <b>{price}</b>
                     </div>
-                    <img onClick={onClickPlus} src={ isItemAdded(id) ? btnChecked : btnPlus} alt="to cart" />
+                    <img onClick={onClickPlus} src={ isItemAdded(itemId) ? btnChecked : btnPlus} alt="to cart" />
                   </div>
                 </div>
               </>)}
