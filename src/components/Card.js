@@ -6,6 +6,7 @@ import btnChecked from '../img/btnChecked.svg'
 import AppContext from '../context'
 import ContentLoader from 'react-content-loader';
 
+
 const Card = ({itemId,imageUrl, price, title, isInFavorite = false,}) => {
 
   const {isItemAdded,onAddToCart, isLoading,onAddToFavorites,isItemInFavorite} = useContext(AppContext)

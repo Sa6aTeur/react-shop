@@ -1,17 +1,46 @@
-import React from 'react'
-import sneaker from '../img/sneaker1.jpg'
-import btnPlus from '../img/btnPlus.svg'
+import React, {useContext, useState} from 'react'
 import emptyCart from '../img/emptyCart.svg'
-import btnChecked from '../img/btnChecked.svg'
+import orderComplete from '../img/orderComplete.svg'
 import deleteButton from '../img/deleteButton.svg'
 import rightArrow from '../img/rightArrow.svg'
-import leftArrow from '../img/leftArrow.svg'
 import useTotalPrice from '../Hooks/totalPrice'
+import CartInfo from '../components/CartInfo'
+import AppContext from '../context'
+import sneakersApi from '../api/axios'
 
 
 function Drawer({onCartClose, onRemoveFromCart, items=[] }) {
 
+  const {cartItems, setCartItems} = useContext(AppContext)
+
   let totalPrice = useTotalPrice()
+  const [isOrederComplete, setIsOrederComplete] = useState(false)
+  const [isOrderLoading, setIsOrderLoading] = useState(false)
+  const [orderId, setOrderId] = useState(null)
+
+
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const onClickOrder = async () => {
+    debugger
+    try {
+      setIsOrderLoading(true)
+      const {data} = await sneakersApi.post('/orders',{ items: cartItems })
+      setOrderId(data.id)
+      setIsOrederComplete(true)
+      ////delete All Items From Cart (this is cycle because the TEST API does not have other methods in the endpoint )
+      for (let i = 0; i < cartItems.length; i++) {
+        const item = cartItems[i];
+        await sneakersApi.delete('/cart/' + item.id);
+        await delay(1000);
+      }       
+      setCartItems([])
+    } catch (error) {
+      alert('Не удалось оформить заказ')
+    }
+    setIsOrderLoading(false)
+  }
+
 
   return (   
     <div className=" overlay">
@@ -46,16 +75,16 @@ function Drawer({onCartClose, onRemoveFromCart, items=[] }) {
                     <b>{Math.ceil(totalPrice*0.05)}</b>
                   </li>
                 </ul>
-                <button className="greenButton">Оформить заказ <img className="rightArrow " height={16} width={16}  src={rightArrow} alt="order" /></button>          
+                <button onClick={onClickOrder} disabled={isOrderLoading} className="greenButton" > Оформить заказ <img className="rightArrow " height={16} width={16}  src={rightArrow} alt="order" /></button>          
             </div>
             </>   ) 
           
-          : (<div className="emptyCart d-flex flex justify-center align-center flex-column">
-              <img height={120} width={120} src={emptyCart} alt="emptyCart" />
-              <h3>Корзина пустая</h3>
-              <p>Добавьте хотя бы одну пару кроссовок,<br/> чтобы сделать заказ.</p>
-              <button onClick={onCartClose} className="greenButton"><img className="leftArrow" height={16} width={16}  src={leftArrow} alt="back"/> Вернуться назад </button> 
-            </div>)
+          : (<CartInfo title={isOrederComplete? 'Заказ оформлен!' :'Корзина пустая'}
+                       imgUrl={isOrederComplete? orderComplete : emptyCart}
+                       description={isOrederComplete? `Ваш заказ #${orderId} скоро будет передан курьерской доставке` :'Добавьте хотя бы одну пару кроссовок, чтобы сделать заказ.'}
+                       onCartClose={onCartClose}
+                       isOrederComplete={isOrederComplete}
+             />)
         }                 
       </div>
     </div>

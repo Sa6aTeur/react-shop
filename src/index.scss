@@ -172,7 +172,13 @@ code {
       flex: 1;
       border-bottom: 1px dashed grey;
     }
-    
+    .greenButton{
+      &:disabled{
+        background-color: #bebebe;
+        animation: button-loading 0.9s ease-in-out infinite;
+        cursor: default;
+      }
+    }
   }
   .items{
     flex:1;
@@ -227,4 +233,17 @@ code {
   width: 100%;
   z-index: 1;
   height: 100%;
+}
+
+@keyframes button-loading {
+  0%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0.7;
+  }
+  100%{
+    opacity: 1;
+  }
+  
 }

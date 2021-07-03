@@ -6,7 +6,6 @@ import leftArrow from '../img/leftArrow.svg'
 import { Link } from 'react-router-dom';
 
 
-
 function Favorites() {
   const {favorites, onAddToFavorites,onAddToCart} = useContext(AppContext)
 

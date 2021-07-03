@@ -14,7 +14,6 @@ function App() {
   const [homeItems, setHomeItems] = useState([])
   const [cartItems, setCartItems] = useState([])
   const [isLoading, setIsLoading] = useState(true)
-  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
 
@@ -37,7 +36,6 @@ function App() {
 
   const onAddToCart = async (obj) =>{
     try {
-      debugger
       if(cartItems.find(item => item.itemId === obj.itemId )){
         const item = cartItems.find(item => Number(item.itemId) === Number(obj.itemId) )
         sneakersApi.delete(`/cart/${item.id}`)
@@ -55,7 +53,6 @@ function App() {
 
   const onAddToFavorites = async (obj) =>{
     try {
-      debugger
       if(favorites.find(item => item.itemId === obj.itemId )){
         const item = favorites.find(item => Number(item.itemId) === Number(obj.itemId) )
         sneakersApi.delete(`/favorites/${item.id}`)
@@ -94,9 +91,9 @@ function App() {
         favorites,
         onAddToCart,
         isLoading,
-        totalPrice,
         onAddToFavorites,
-        isItemInFavorite
+        isItemInFavorite,
+        setCartItems
 
       }}>
       <div className="wrapper clear">
