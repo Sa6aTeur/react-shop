@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/react-shop/static/css/main.aae8706f.chunk.css",
-    "main.js": "/react-shop/static/js/main.a81351ea.chunk.js",
-    "main.js.map": "/react-shop/static/js/main.a81351ea.chunk.js.map",
+    "main.css": "/react-shop/static/css/main.76b398c2.chunk.css",
+    "main.js": "/react-shop/static/js/main.9f086b9e.chunk.js",
+    "main.js.map": "/react-shop/static/js/main.9f086b9e.chunk.js.map",
     "runtime-main.js": "/react-shop/static/js/runtime-main.f00ddc4c.js",
     "runtime-main.js.map": "/react-shop/static/js/runtime-main.f00ddc4c.js.map",
     "static/css/2.caa02cb8.chunk.css": "/react-shop/static/css/2.caa02cb8.chunk.css",
-    "static/js/2.0dc129b0.chunk.js": "/react-shop/static/js/2.0dc129b0.chunk.js",
-    "static/js/2.0dc129b0.chunk.js.map": "/react-shop/static/js/2.0dc129b0.chunk.js.map",
+    "static/js/2.a97654fb.chunk.js": "/react-shop/static/js/2.a97654fb.chunk.js",
+    "static/js/2.a97654fb.chunk.js.map": "/react-shop/static/js/2.a97654fb.chunk.js.map",
     "index.html": "/react-shop/index.html",
     "static/css/2.caa02cb8.chunk.css.map": "/react-shop/static/css/2.caa02cb8.chunk.css.map",
-    "static/css/main.aae8706f.chunk.css.map": "/react-shop/static/css/main.aae8706f.chunk.css.map",
-    "static/js/2.0dc129b0.chunk.js.LICENSE.txt": "/react-shop/static/js/2.0dc129b0.chunk.js.LICENSE.txt",
+    "static/css/main.76b398c2.chunk.css.map": "/react-shop/static/css/main.76b398c2.chunk.css.map",
+    "static/js/2.a97654fb.chunk.js.LICENSE.txt": "/react-shop/static/js/2.a97654fb.chunk.js.LICENSE.txt",
     "static/media/Cart.5113b08f.svg": "/react-shop/static/media/Cart.5113b08f.svg",
     "static/media/Like.fb6fc173.svg": "/react-shop/static/media/Like.fb6fc173.svg",
     "static/media/User.381202f7.svg": "/react-shop/static/media/User.381202f7.svg",
@@ -21,17 +21,17 @@
     "static/media/emptyCart.1d435b52.svg": "/react-shop/static/media/emptyCart.1d435b52.svg",
     "static/media/leftArrow.ac63c7c4.svg": "/react-shop/static/media/leftArrow.ac63c7c4.svg",
     "static/media/lickedButton.9b947698.svg": "/react-shop/static/media/lickedButton.9b947698.svg",
+    "static/media/orderComplete.9a1a3e50.svg": "/react-shop/static/media/orderComplete.9a1a3e50.svg",
     "static/media/rightArrow.fc322251.svg": "/react-shop/static/media/rightArrow.fc322251.svg",
     "static/media/sadEmoji.03e7ee39.svg": "/react-shop/static/media/sadEmoji.03e7ee39.svg",
     "static/media/search.9c36f68e.svg": "/react-shop/static/media/search.9c36f68e.svg",
-    "static/media/sneaker1.99f757de.jpg": "/react-shop/static/media/sneaker1.99f757de.jpg",
     "static/media/unlickedButton.0948da3e.svg": "/react-shop/static/media/unlickedButton.0948da3e.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f00ddc4c.js",
     "static/css/2.caa02cb8.chunk.css",
-    "static/js/2.0dc129b0.chunk.js",
-    "static/css/main.aae8706f.chunk.css",
-    "static/js/main.a81351ea.chunk.js"
+    "static/js/2.a97654fb.chunk.js",
+    "static/css/main.76b398c2.chunk.css",
+    "static/js/main.9f086b9e.chunk.js"
   ]
 }
